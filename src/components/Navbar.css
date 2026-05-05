@@ -1,0 +1,131 @@
+/* src/component/Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a2e;
+  padding: 15px 30px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.navbar-links a:hover { background-color: #e94560; }
+
+/* PERFIL */
+.navbar-perfil { position: relative; }
+
+.perfil-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 30px;
+  padding: 6px 14px 6px 6px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.2s;
+}
+
+.perfil-btn:hover { background: rgba(255,255,255,0.2); }
+
+.perfil-avatar {
+  width: 32px;
+  height: 32px;
+  background: #e94560;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.perfil-nombre { font-size: 0.9rem; font-weight: 500; }
+.perfil-chevron { font-size: 0.7rem; opacity: 0.7; }
+
+.perfil-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  min-width: 240px;
+  padding: 16px;
+  color: #333;
+}
+
+.perfil-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.perfil-info strong { font-size: 1rem; color: #1a1a2e; }
+.perfil-info span { font-size: 0.85rem; color: #666; }
+
+.perfil-rol {
+  display: inline-block;
+  margin-top: 4px;
+  background: #f0f2f5;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem !important;
+  color: #1a1a2e !important;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.perfil-dropdown hr { border: none; border-top: 1px solid #eee; margin: 0 0 12px; }
+
+.perfil-logout {
+  width: 100%;
+  padding: 10px;
+  background: #fff0f0;
+  color: #e94560;
+  border: 1px solid #ffd0d0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.perfil-logout:hover { background: #ffe0e0; }
+
+.navbar-login-btn {
+  color: white;
+  text-decoration: none;
+  padding: 8px 20px;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.navbar-login-btn:hover { background: rgba(255,255,255,0.15); }

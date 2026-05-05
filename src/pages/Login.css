@@ -1,0 +1,135 @@
+/* src/pages/Login.css */
+* {
+  box-sizing: border-box;
+}
+
+.login-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #f0f2f5;
+}
+
+.login-card {
+  background: white;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.login-logo {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.login-card h2 {
+  font-size: 1.6rem;
+  color: #1a1a2e;
+  margin: 0 0 6px;
+}
+
+.login-card > p {
+  color: #888;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+}
+
+.login-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  text-align: left;
+  width: 100%;
+}
+
+.login-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.login-group input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s;
+  width: 100%;
+}
+
+.login-group input:focus {
+  border-color: #e94560;
+}
+
+.login-recuperar {
+  text-align: right;
+  margin: -8px 0 16px;
+}
+
+.login-recuperar a {
+  color: #e94560;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.login-recuperar a:hover {
+  text-decoration: underline;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a1a2e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: block;
+}
+
+.login-btn:hover:not(:disabled) {
+  background-color: #e94560;
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+.login-registro {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.login-registro a {
+  color: #e94560;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-registro a:hover {
+  text-decoration: underline;
+}
