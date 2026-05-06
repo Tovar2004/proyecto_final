@@ -31,7 +31,7 @@ function Registro() {
     try {
       await registrarCliente(form);
       navigate('/galeria');
-    } catch (err) {
+    } catch {
       setError('Este correo ya está registrado o hubo un error.');
     } finally {
       setLoading(false);

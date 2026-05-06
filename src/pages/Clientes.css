@@ -1,0 +1,140 @@
+/* src/pages/Clientes.css */
+.clientes-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.clientes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.clientes-header h1 {
+  font-size: 1.6rem;
+  color: #1a1a2e;
+}
+
+.clientes-total {
+  background: #1a1a2e;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.clientes-loading {
+  text-align: center;
+  color: #888;
+  margin-top: 60px;
+  font-size: 1.1rem;
+}
+
+.clientes-tabla-wrapper {
+  overflow-x: auto;
+}
+
+.clientes-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.clientes-tabla thead {
+  background-color: #1a1a2e;
+  color: white;
+}
+
+.clientes-tabla th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.clientes-tabla td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  vertical-align: middle;
+  color: #333;
+}
+
+.clientes-tabla tr:last-child td {
+  border-bottom: none;
+}
+
+.clientes-tabla tr:hover td {
+  background-color: #fafafa;
+}
+
+.cliente-avatar {
+  width: 38px;
+  height: 38px;
+  background: #e94560;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.btn-eliminar-cliente {
+  background: #fff0f0;
+  color: #e94560;
+  border: 1px solid #ffd0d0;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-eliminar-cliente:hover {
+  background: #ffe0e0;
+}
+
+.confirm-eliminar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.confirm-eliminar p {
+  font-size: 0.8rem;
+  color: #555;
+  margin: 0;
+}
+
+.btn-confirmar {
+  background: #e94560;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+.btn-cancelar {
+  background: #f0f0f0;
+  color: #555;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  width: 100%;
+}

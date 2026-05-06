@@ -113,7 +113,7 @@ function Admin() {
   return (
     <div className="admin-container">
       <div className="admin-header">
-        <h1>Panel de Administración</h1>
+        <h1>Incidencias Registradas</h1>
         <div className="admin-header-right">
           <select
             className="select-cliente-filtro"

@@ -1,8 +1,8 @@
 // src/context/AuthContext.jsx
-import { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase/firebase';
+import { createContext, useContext, useEffect, useState } from "react";
+import { onAuthStateChanged, deleteUser } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../firebase/firebase";
 
 const AuthContext = createContext();
 
@@ -16,17 +16,23 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Verificar si es admin
-        const adminDoc = await getDoc(doc(db, 'administradores', user.uid));
+        const adminDoc = await getDoc(doc(db, "administradores", user.uid));
         if (adminDoc.exists()) {
-          setRol('admin');
+          setRol("admin");
           setUsuario({ uid: user.uid, ...adminDoc.data() });
         } else {
-          // Verificar si es cliente
-          const clienteDoc = await getDoc(doc(db, 'clientes', user.uid));
+          const clienteDoc = await getDoc(doc(db, "clientes", user.uid));
           if (clienteDoc.exists()) {
-            setRol('cliente');
+            setRol("cliente");
             setUsuario({ uid: user.uid, ...clienteDoc.data() });
+          } else {
+            try {
+              await deleteUser(user);
+            } catch {
+              await auth.signOut();
+            }
+            setUsuario(null);
+            setRol(null);
           }
         }
       } else {

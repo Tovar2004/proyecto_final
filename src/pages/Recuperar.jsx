@@ -10,21 +10,19 @@ function Recuperar() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError('');
-  setLoading(true);
-  try {
-    await recuperarPassword(correo);
-    console.log('Correo enviado a:', correo);
-    setEnviado(true);
-  } catch (err) {
-    console.error('Error completo:', err.code, err.message);
-    setError('No encontramos una cuenta con ese correo.');
-  } finally {
-    setLoading(false);
-  }
-};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      await recuperarPassword(correo);
+      setEnviado(true);
+    } catch {
+      setError('No encontramos una cuenta con ese correo.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="recuperar-container">
