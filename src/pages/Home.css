@@ -1,52 +1,48 @@
-/* src/pages/Home.css */
 .galeria-header {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 30px 0 20px;
+  margin: 24px 0 16px;
+  padding: 0 8px;
 }
 
-.galeria-header .page-title {
-  margin: 0;
-}
+.galeria-header .page-title { margin: 0; }
 
 .btn-mis-reportes {
   position: absolute;
   right: 0;
-  padding: 10px 20px;
+  padding: 8px 16px;
   background: white;
   color: #1a5c1a;
   border: 2px solid #1a5c1a;
   border-radius: 30px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
-.btn-mis-reportes:hover {
-  background: #1a5c1a;
-  color: white;
-}
+.btn-mis-reportes:hover { background: #1a5c1a; color: white; }
+.btn-mis-reportes.activo { background: #e94560; border-color: #e94560; color: white; }
 
-.btn-mis-reportes.activo {
-  background: #e94560;
-  border-color: #e94560;
-  color: white;
-}
-
-.loading-text,
-.empty-text {
+.loading-text, .empty-text {
   text-align: center;
   margin-top: 60px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #888;
 }
 
 .galeria-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
-  padding: 20px 0;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 16px 0;
+}
+
+@media (max-width: 600px) {
+  .galeria-header { flex-direction: column; gap: 12px; }
+  .btn-mis-reportes { position: static; width: 100%; text-align: center; }
+  .galeria-grid { grid-template-columns: 1fr; gap: 14px; }
 }

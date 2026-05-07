@@ -1,15 +1,15 @@
-/* src/pages/Recuperar.css */
 .recuperar-container {
   min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  background-color: #f0f2f5;
 }
 
 .recuperar-card {
   background: white;
-  padding: 40px;
+  padding: 32px 28px;
   border-radius: 14px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   width: 100%;
@@ -17,16 +17,16 @@
   text-align: center;
 }
 
-.recuperar-logo { font-size: 3rem; margin-bottom: 10px; }
-.recuperar-card h2 { font-size: 1.6rem; color: #1a5c1a; margin-bottom: 6px; }
-.recuperar-card p { color: #888; margin-bottom: 24px; font-size: 0.9rem; }
+.recuperar-logo { font-size: 2.8rem; margin-bottom: 10px; }
+.recuperar-card h2 { font-size: 1.5rem; color: #1a5c1a; margin-bottom: 6px; }
+.recuperar-card p { color: #888; margin-bottom: 20px; font-size: 0.9rem; }
 
 .recuperar-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
   text-align: left;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .recuperar-group label { font-size: 0.85rem; font-weight: 600; color: #444; }
@@ -38,6 +38,7 @@
   font-size: 0.95rem;
   outline: none;
   transition: border 0.2s;
+  width: 100%;
 }
 
 .recuperar-group input:focus { border-color: #e94560; }
@@ -64,8 +65,8 @@
   border: 1px solid #f5c6cb;
   padding: 10px;
   border-radius: 8px;
-  margin-bottom: 16px;
-  font-size: 0.9rem;
+  margin-bottom: 14px;
+  font-size: 0.88rem;
 }
 
 .recuperar-exito {
@@ -74,13 +75,17 @@
   border: 1px solid #c3e6cb;
   padding: 20px;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
 }
 
 .recuperar-link, .recuperar-volver a {
   color: #e94560;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
-.recuperar-volver { margin-top: 16px; }
+.recuperar-volver { margin-top: 14px; }
+
+@media (max-width: 480px) {
+  .recuperar-card { padding: 24px 16px; }
+}

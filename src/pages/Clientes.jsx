@@ -10,7 +10,6 @@ function Clientes() {
 
   useEffect(() => {
     let activo = true;
-
     const cargar = async () => {
       try {
         const data = await obtenerClientes();
@@ -21,7 +20,6 @@ function Clientes() {
         if (activo) setLoading(false);
       }
     };
-
     cargar();
     return () => { activo = false; };
   }, []);
@@ -51,51 +49,79 @@ function Clientes() {
       ) : clientes.length === 0 ? (
         <p className="clientes-loading">No hay clientes registrados.</p>
       ) : (
-        <div className="clientes-tabla-wrapper">
-          <table className="clientes-tabla">
-            <thead>
-              <tr>
-                <th>Avatar</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {clientes.map(cliente => (
-                <tr key={cliente.id}>
-                  <td>
-                    <div className="cliente-avatar">
-                      {cliente.nombre?.charAt(0).toUpperCase()}
-                    </div>
-                  </td>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.apellido}</td>
-                  <td>{cliente.correo}</td>
-                  <td>{cliente.telefono}</td>
-                  <td>
-                    {confirmEliminar === cliente.id ? (
-                      <div className="confirm-eliminar">
-                        <p>¿Eliminar cliente?</p>
-                        <button className="btn-confirmar" onClick={() => handleEliminar(cliente.id)}>Sí</button>
-                        <button className="btn-cancelar" onClick={() => setConfirmEliminar(null)}>No</button>
-                      </div>
-                    ) : (
-                      <button
-                        className="btn-eliminar-cliente"
-                        onClick={() => setConfirmEliminar(cliente.id)}
-                      >
-                        Eliminar
-                      </button>
-                    )}
-                  </td>
+        <>
+          {/* TABLA DESKTOP */}
+          <div className="clientes-tabla-wrapper">
+            <table className="clientes-tabla">
+              <thead>
+                <tr>
+                  <th>Avatar</th>
+                  <th>Nombre</th>
+                  <th>Apellido</th>
+                  <th>Correo</th>
+                  <th>Teléfono</th>
+                  <th>Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {clientes.map(cliente => (
+                  <tr key={cliente.id}>
+                    <td>
+                      <div className="cliente-avatar">
+                        {cliente.nombre?.charAt(0).toUpperCase()}
+                      </div>
+                    </td>
+                    <td>{cliente.nombre}</td>
+                    <td>{cliente.apellido}</td>
+                    <td>{cliente.correo}</td>
+                    <td>{cliente.telefono}</td>
+                    <td>
+                      {confirmEliminar === cliente.id ? (
+                        <div className="confirm-eliminar">
+                          <p>¿Eliminar cliente?</p>
+                          <button className="btn-confirmar" onClick={() => handleEliminar(cliente.id)}>Sí</button>
+                          <button className="btn-cancelar" onClick={() => setConfirmEliminar(null)}>No</button>
+                        </div>
+                      ) : (
+                        <button className="btn-eliminar-cliente" onClick={() => setConfirmEliminar(cliente.id)}>
+                          Eliminar
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="clientes-cards">
+            {clientes.map(cliente => (
+              <div className="clientes-card" key={cliente.id}>
+                <div className="clientes-card-header">
+                  <div className="cliente-avatar">
+                    {cliente.nombre?.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="clientes-card-info">
+                    <strong>{cliente.nombre} {cliente.apellido}</strong>
+                    <span>{cliente.correo}</span>
+                    <span>📞 {cliente.telefono}</span>
+                  </div>
+                </div>
+                {confirmEliminar === cliente.id ? (
+                  <div className="confirm-eliminar">
+                    <p>¿Eliminar cliente?</p>
+                    <button className="btn-confirmar" onClick={() => handleEliminar(cliente.id)}>Sí</button>
+                    <button className="btn-cancelar" onClick={() => setConfirmEliminar(null)}>No</button>
+                  </div>
+                ) : (
+                  <button className="btn-eliminar-cliente" onClick={() => setConfirmEliminar(cliente.id)}>
+                    Eliminar
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

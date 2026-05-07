@@ -1,6 +1,5 @@
-/* src/pages/Clientes.css */
 .clientes-container {
-  padding: 24px;
+  padding: 20px 16px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -9,20 +8,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.clientes-header h1 {
-  font-size: 1.6rem;
-  color: #1a5c1a;
-}
+.clientes-header h1 { font-size: 1.4rem; color: #1a5c1a; }
 
 .clientes-total {
   background: #1a5c1a;
   color: white;
-  padding: 6px 16px;
+  padding: 6px 14px;
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 600;
 }
 
@@ -30,12 +28,10 @@
   text-align: center;
   color: #888;
   margin-top: 60px;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
-.clientes-tabla-wrapper {
-  overflow-x: auto;
-}
+.clientes-tabla-wrapper { overflow-x: auto; }
 
 .clientes-tabla {
   width: 100%;
@@ -44,40 +40,33 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  min-width: 500px;
 }
 
-.clientes-tabla thead {
-  background-color: #1a5c1a;
-  color: white;
-}
+.clientes-tabla thead { background-color: #1a5c1a; color: white; }
 
 .clientes-tabla th {
-  padding: 14px 16px;
+  padding: 12px 14px;
   text-align: left;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .clientes-tabla td {
-  padding: 12px 16px;
+  padding: 11px 14px;
   border-bottom: 1px solid #f0f0f0;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   vertical-align: middle;
   color: #333;
 }
 
-.clientes-tabla tr:last-child td {
-  border-bottom: none;
-}
-
-.clientes-tabla tr:hover td {
-  background-color: #fafafa;
-}
+.clientes-tabla tr:last-child td { border-bottom: none; }
+.clientes-tabla tr:hover td { background-color: #fafafa; }
 
 .cliente-avatar {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   background: #e94560;
   border-radius: 50%;
   display: flex;
@@ -85,7 +74,7 @@
   justify-content: center;
   color: white;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .btn-eliminar-cliente {
@@ -94,28 +83,16 @@
   border: 1px solid #ffd0d0;
   border-radius: 6px;
   padding: 6px 12px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   cursor: pointer;
   transition: background 0.2s;
   white-space: nowrap;
 }
 
-.btn-eliminar-cliente:hover {
-  background: #ffe0e0;
-}
+.btn-eliminar-cliente:hover { background: #ffe0e0; }
 
-.confirm-eliminar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.confirm-eliminar p {
-  font-size: 0.8rem;
-  color: #555;
-  margin: 0;
-}
+.confirm-eliminar { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.confirm-eliminar p { font-size: 0.78rem; color: #555; margin: 0; }
 
 .btn-confirmar {
   background: #e94560;
@@ -124,8 +101,9 @@
   border-radius: 6px;
   padding: 4px 12px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   width: 100%;
+  font-weight: 600;
 }
 
 .btn-cancelar {
@@ -135,6 +113,46 @@
   border-radius: 6px;
   padding: 4px 12px;
   cursor: pointer;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   width: 100%;
+}
+
+/* CARDS MÓVIL */
+@media (max-width: 600px) {
+  .clientes-tabla-wrapper { display: none; }
+
+  .clientes-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .clientes-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .clientes-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .clientes-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .clientes-card-info strong { font-size: 1rem; color: #1a5c1a; }
+  .clientes-card-info span { font-size: 0.85rem; color: #666; }
+}
+
+@media (min-width: 601px) {
+  .clientes-cards { display: none; }
 }

@@ -1,38 +1,49 @@
-/* src/component/Navbar.css */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #1a5c1a;
-  padding: 15px 30px;
+  padding: 12px 20px;
   color: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   position: relative;
   z-index: 100;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .navbar-brand {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   letter-spacing: 1px;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .navbar-links {
   display: flex;
-  gap: 10px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .navbar-links a {
   color: white;
   text-decoration: none;
-  font-size: 0.95rem;
-  padding: 8px 16px;
+  font-size: 0.9rem;
+  padding: 6px 12px;
   border-radius: 6px;
   transition: background 0.2s;
+  white-space: nowrap;
 }
 
 .navbar-links a:hover { background-color: #e94560; }
+
+.navbar-derecha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
 
 /* PERFIL */
 .navbar-perfil { position: relative; }
@@ -44,7 +55,7 @@
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 30px;
-  padding: 6px 14px 6px 6px;
+  padding: 6px 12px 6px 6px;
   cursor: pointer;
   color: white;
   transition: background 0.2s;
@@ -53,18 +64,19 @@
 .perfil-btn:hover { background: rgba(255,255,255,0.2); }
 
 .perfil-avatar {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   background: #e94560;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  flex-shrink: 0;
 }
 
-.perfil-nombre { font-size: 0.9rem; font-weight: 500; }
+.perfil-nombre { font-size: 0.85rem; font-weight: 500; }
 .perfil-chevron { font-size: 0.7rem; opacity: 0.7; }
 
 .perfil-dropdown {
@@ -74,9 +86,10 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  min-width: 240px;
+  min-width: 220px;
   padding: 16px;
   color: #333;
+  z-index: 200;
 }
 
 .perfil-info {
@@ -86,8 +99,8 @@
   margin-bottom: 12px;
 }
 
-.perfil-info strong { font-size: 1rem; color: #1a5c1a; }
-.perfil-info span { font-size: 0.85rem; color: #666; }
+.perfil-info strong { font-size: 0.95rem; color: #1a5c1a; }
+.perfil-info span { font-size: 0.82rem; color: #666; }
 
 .perfil-rol {
   display: inline-block;
@@ -95,7 +108,7 @@
   background: #f0f2f5;
   padding: 3px 10px;
   border-radius: 20px;
-  font-size: 0.8rem !important;
+  font-size: 0.78rem !important;
   color: #1a5c1a !important;
   font-weight: 600;
   width: fit-content;
@@ -112,7 +125,7 @@
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   transition: background 0.2s;
 }
 
@@ -121,11 +134,12 @@
 .navbar-login-btn {
   color: white;
   text-decoration: none;
-  padding: 8px 20px;
+  padding: 7px 16px;
   border: 1px solid rgba(255,255,255,0.4);
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   transition: background 0.2s;
+  white-space: nowrap;
 }
 
 .navbar-login-btn:hover { background: rgba(255,255,255,0.15); }
@@ -133,10 +147,10 @@
 .navbar-anonimo-btn {
   color: white;
   text-decoration: none;
-  padding: 8px 18px;
+  padding: 7px 14px;
   border: 2px solid rgba(255,255,255,0.5);
   border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   transition: all 0.2s;
   white-space: nowrap;
@@ -147,43 +161,10 @@
   border-color: white;
 }
 
-.navbar-derecha {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-left: auto;
-}
-
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1a5c1a;
-  padding: 15px 30px;
-  color: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  position: relative;
-  z-index: 100;
-}
-
-.navbar-brand {
-  font-size: 1.2rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 10px;
-  margin-left: auto;
-  margin-right: 16px;
-}
-
-.navbar-derecha {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
+@media (max-width: 600px) {
+  .navbar { padding: 10px 14px; }
+  .navbar-brand { font-size: 0.95rem; }
+  .perfil-nombre { display: none; }
+  .navbar-links a { font-size: 0.82rem; padding: 5px 8px; }
+  .navbar-anonimo-btn { font-size: 0.78rem; padding: 6px 10px; }
 }
