@@ -1,5 +1,6 @@
 // src/services/authService.js
 import { auth, db } from '../firebase/firebase';
+import { doc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -8,7 +9,7 @@ import {
   confirmPasswordReset,
   verifyPasswordResetCode
 } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+
 
 export const registrarCliente = async ({ nombre, apellido, telefono, correo, password }) => {
   const credencial = await createUserWithEmailAndPassword(auth, correo, password);
@@ -25,6 +26,18 @@ export const iniciarSesion = async (correo, password) => {
 export const cerrarSesion = () => signOut(auth);
 
 export const recuperarPassword = async (correo) => {
+  // Verificar en clientes
+  const qClientes = query(collection(db, 'clientes'), where('correo', '==', correo));
+  const snapClientes = await getDocs(qClientes);
+
+  // Verificar en administradores
+  const qAdmin = query(collection(db, 'administradores'), where('correo', '==', correo));
+  const snapAdmin = await getDocs(qAdmin);
+
+  if (snapClientes.empty && snapAdmin.empty) {
+    throw new Error('No encontramos una cuenta con ese correo.');
+  }
+
   const actionCodeSettings = {
     url: 'http://localhost:5173/restablecer',
     handleCodeInApp: true,

@@ -1,38 +1,52 @@
 // src/pages/Registro.jsx
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { registrarCliente } from '../services/authService';
-import './Registro.css';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { registrarCliente } from "../services/authService";
+import "./Registro.css";
 
 const initialForm = {
-  nombre: '', apellido: '', telefono: '', correo: '', password: '', confirmar: ''
+  nombre: "",
+  apellido: "",
+  telefono: "",
+  correo: "",
+  password: "",
+  confirmar: "",
 };
 
 function Registro() {
   const [form, setForm] = useState(initialForm);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     if (form.password !== form.confirmar) {
-      setError('Las contraseñas no coinciden.');
+      setError("Las contraseñas no coinciden.");
       return;
     }
     if (form.password.length < 6) {
-      setError('La contraseña debe tener al menos 6 caracteres.');
+      setError("La contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+    if (form.telefono.length !== 10) {
+      setError("El teléfono debe tener exactamente 10 dígitos.");
+      return;
+    }
+    if (!form.telefono.startsWith("3")) {
+      setError("El teléfono debe empezar por 3 (número colombiano).");
       return;
     }
     setLoading(true);
     try {
       await registrarCliente(form);
-      navigate('/galeria');
+      navigate("/galeria");
     } catch {
-      setError('Este correo ya está registrado o hubo un error.');
+      setError("Este correo ya está registrado o hubo un error.");
     } finally {
       setLoading(false);
     }
@@ -51,31 +65,79 @@ function Registro() {
           <div className="registro-grid">
             <div className="registro-group">
               <label>Nombre</label>
-              <input type="text" name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" required />
+              <input
+                type="text"
+                name="nombre"
+                value={form.nombre}
+                onChange={handleChange}
+                placeholder="Tu nombre"
+                required
+              />
             </div>
             <div className="registro-group">
               <label>Apellido</label>
-              <input type="text" name="apellido" value={form.apellido} onChange={handleChange} placeholder="Tu apellido" required />
+              <input
+                type="text"
+                name="apellido"
+                value={form.apellido}
+                onChange={handleChange}
+                placeholder="Tu apellido"
+                required
+              />
             </div>
             <div className="registro-group">
               <label>Teléfono</label>
-              <input type="tel" name="telefono" value={form.telefono} onChange={handleChange} placeholder="3001234567" required />
+              <input
+                type="tel"
+                name="telefono"
+                value={form.telefono}
+                onChange={(e) => {
+                  const valor = e.target.value.replace(/\D/g, "");
+                  if (valor.length <= 10) {
+                    setForm({ ...form, telefono: valor });
+                  }
+                }}
+                placeholder="3001234567"
+                maxLength={10}
+                required
+              />
             </div>
             <div className="registro-group">
               <label>Correo electrónico</label>
-              <input type="email" name="correo" value={form.correo} onChange={handleChange} placeholder="tu@correo.com" required />
+              <input
+                type="email"
+                name="correo"
+                value={form.correo}
+                onChange={handleChange}
+                placeholder="tu@correo.com"
+                required
+              />
             </div>
             <div className="registro-group">
               <label>Contraseña</label>
-              <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="••••••••" required />
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                placeholder="••••••••"
+                required
+              />
             </div>
             <div className="registro-group">
               <label>Confirmar contraseña</label>
-              <input type="password" name="confirmar" value={form.confirmar} onChange={handleChange} placeholder="••••••••" required />
+              <input
+                type="password"
+                name="confirmar"
+                value={form.confirmar}
+                onChange={handleChange}
+                placeholder="••••••••"
+                required
+              />
             </div>
           </div>
           <button type="submit" className="registro-btn" disabled={loading}>
-            {loading ? 'Registrando...' : 'Crear Cuenta'}
+            {loading ? "Registrando..." : "Crear Cuenta"}
           </button>
         </form>
 

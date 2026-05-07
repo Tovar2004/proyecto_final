@@ -14,11 +14,11 @@
 
 .clientes-header h1 {
   font-size: 1.6rem;
-  color: #1a1a2e;
+  color: #1a5c1a;
 }
 
 .clientes-total {
-  background: #1a1a2e;
+  background: #1a5c1a;
   color: white;
   padding: 6px 16px;
   border-radius: 20px;
@@ -47,7 +47,7 @@
 }
 
 .clientes-tabla thead {
-  background-color: #1a1a2e;
+  background-color: #1a5c1a;
   color: white;
 }
 

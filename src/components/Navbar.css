@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1a1a2e;
+  background-color: #1a5c1a;
   padding: 15px 30px;
   color: white;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
@@ -86,7 +86,7 @@
   margin-bottom: 12px;
 }
 
-.perfil-info strong { font-size: 1rem; color: #1a1a2e; }
+.perfil-info strong { font-size: 1rem; color: #1a5c1a; }
 .perfil-info span { font-size: 0.85rem; color: #666; }
 
 .perfil-rol {
@@ -96,7 +96,7 @@
   padding: 3px 10px;
   border-radius: 20px;
   font-size: 0.8rem !important;
-  color: #1a1a2e !important;
+  color: #1a5c1a !important;
   font-weight: 600;
   width: fit-content;
 }
@@ -129,3 +129,61 @@
 }
 
 .navbar-login-btn:hover { background: rgba(255,255,255,0.15); }
+
+.navbar-anonimo-btn {
+  color: white;
+  text-decoration: none;
+  padding: 8px 18px;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.navbar-anonimo-btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: white;
+}
+
+.navbar-derecha {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a5c1a;
+  padding: 15px 30px;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+.navbar-derecha {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}

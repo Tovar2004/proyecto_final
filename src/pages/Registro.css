@@ -19,7 +19,7 @@
 
 .registro-logo { font-size: 3rem; margin-bottom: 10px; }
 
-.registro-card h2 { font-size: 1.6rem; color: #1a1a2e; margin-bottom: 6px; }
+.registro-card h2 { font-size: 1.6rem; color: #1a5c1a; margin-bottom: 6px; }
 .registro-card p { color: #888; margin-bottom: 24px; font-size: 0.9rem; }
 
 .registro-grid {
@@ -52,7 +52,7 @@
 .registro-btn {
   width: 100%;
   padding: 12px;
-  background-color: #1a1a2e;
+  background-color: #1a5c1a;
   color: white;
   border: none;
   border-radius: 8px;

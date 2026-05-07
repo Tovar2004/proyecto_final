@@ -87,7 +87,7 @@ function Clientes() {
                         className="btn-eliminar-cliente"
                         onClick={() => setConfirmEliminar(cliente.id)}
                       >
-                        🗑️ Eliminar
+                        Eliminar
                       </button>
                     )}
                   </td>

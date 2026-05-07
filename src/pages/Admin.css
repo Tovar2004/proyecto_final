@@ -1,7 +1,6 @@
-/* src/pages/Admin.css */
 .admin-container {
   padding: 24px;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -10,32 +9,55 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .admin-header h1 {
   font-size: 1.6rem;
-  color: #1a1a2e;
+  color: #1a5c1a;
 }
 
-.btn-logout {
-  background: #e94560;
-  color: white;
-  border: none;
-  padding: 8px 20px;
+.admin-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.select-cliente-filtro {
+  padding: 8px 14px;
+  border: 2px solid #1a5c1a;
   border-radius: 8px;
+  background: white;
+  color: #1a5c1a;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
+  outline: none;
+  transition: all 0.2s;
 }
 
-.btn-logout:hover {
-  background: #c0392b;
+.select-cliente-filtro:hover {
+  background: #1a5c1a;
+  color: white;
+}
+
+.admin-total {
+  background: #1a5c1a;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .admin-loading {
   text-align: center;
   color: #888;
   margin-top: 60px;
+  font-size: 1.1rem;
 }
 
 .admin-tabla-wrapper {
@@ -48,11 +70,12 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  table-layout: fixed;
 }
 
 .admin-tabla thead {
-  background-color: #1a1a2e;
+  background-color: #1a5c1a;
   color: white;
 }
 
@@ -62,6 +85,7 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .admin-tabla td {
@@ -69,6 +93,8 @@
   border-bottom: 1px solid #f0f0f0;
   font-size: 0.9rem;
   vertical-align: middle;
+  color: #333;
+  word-break: break-word;
 }
 
 .admin-tabla tr:last-child td {
@@ -79,11 +105,63 @@
   background-color: #fafafa;
 }
 
+/* Anchos por columna */
+.admin-tabla th:nth-child(1),
+.admin-tabla td:nth-child(1) {
+  width: 110px;
+}
+
+.admin-tabla th:nth-child(2),
+.admin-tabla td:nth-child(2) {
+  width: 130px;
+}
+
+.admin-tabla th:nth-child(3),
+.admin-tabla td:nth-child(3) {
+  width: 170px;
+}
+
+.admin-tabla th:nth-child(4),
+.admin-tabla td:nth-child(4) {
+  width: 130px;
+}
+
+.admin-tabla th:nth-child(5),
+.admin-tabla td:nth-child(5) {
+  width: 180px;
+}
+
+.admin-tabla th:nth-child(6),
+.admin-tabla td:nth-child(6) {
+  width: 130px;
+}
+
+.admin-tabla th:nth-child(7),
+.admin-tabla td:nth-child(7) {
+  width: 160px;
+}
+
+.admin-tabla th:nth-child(8),
+.admin-tabla td:nth-child(8) {
+  width: 140px;
+}
+
+.admin-tabla th:nth-child(9),
+.admin-tabla td:nth-child(9) {
+  width: 150px;
+}
+
+.admin-tabla th:nth-child(10),
+.admin-tabla td:nth-child(10) {
+  width: 110px;
+}
+
 .admin-img {
-  width: 70px;
-  height: 70px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .sin-img {
@@ -92,64 +170,41 @@
 }
 
 .admin-descripcion {
-  max-width: 200px;
+  max-width: 180px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .select-estado {
-  padding: 6px 10px;
+  padding: 6px 8px;
   border-radius: 6px;
   border: 2px solid;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: bold;
   cursor: pointer;
   outline: none;
   background: white;
+  width: 100%;
+}
+
+.select-prioridad {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 2px solid;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  background: white;
+  width: 100%;
 }
 
 .actualizando {
-  margin-left: 8px;
+  display: block;
+  margin-top: 4px;
   color: #888;
-  font-size: 0.8rem;
-}
-
-.admin-header-right {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.select-cliente-filtro {
-  padding: 8px 14px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  background: white;
-  color: #1a1a2e;
-  font-size: 0.9rem;
-  cursor: pointer;
-  outline: none;
-  transition: border 0.2s;
-}
-
-.select-cliente-filtro option {
-  background: white;
-  color: #1a1a2e;
-}
-
-.select-cliente-filtro:hover {
-  border-color: #1a1a2e;
-}
-
-.admin-total {
-  color: #1a1a2e;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  background: white;
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-weight: 600;
+  font-size: 0.75rem;
 }
 
 .btn-eliminar {
@@ -157,11 +212,12 @@
   color: #e94560;
   border: 1px solid #ffd0d0;
   border-radius: 6px;
-  padding: 6px 12px;
+  padding: 7px 14px;
   font-size: 0.85rem;
   cursor: pointer;
   transition: background 0.2s;
   white-space: nowrap;
+  font-weight: 600;
 }
 
 .btn-eliminar:hover {
@@ -186,10 +242,11 @@
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 4px 12px;
+  padding: 5px 12px;
   cursor: pointer;
   font-size: 0.8rem;
   width: 100%;
+  font-weight: 600;
 }
 
 .btn-cancelar {
@@ -197,7 +254,7 @@
   color: #555;
   border: none;
   border-radius: 6px;
-  padding: 4px 12px;
+  padding: 5px 12px;
   cursor: pointer;
   font-size: 0.8rem;
   width: 100%;
@@ -209,4 +266,80 @@
   cursor: not-allowed;
   display: block;
   text-align: center;
+}
+
+.admin-img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.admin-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.modal-cerrar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+  line-height: 1;
+}
+
+.modal-cerrar:hover {
+  background: #e94560;
+}
+
+.modal-img {
+  width: 100%;
+  max-width: 80vw;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+}
+
+.badge-anonimo {
+  background: #f0f0f0;
+  color: #666;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
 }

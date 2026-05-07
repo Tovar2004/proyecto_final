@@ -1,0 +1,217 @@
+/* src/pages/ReporteAnonimo.css */
+.anonimo-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.anonimo-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.anonimo-badge {
+  display: inline-block;
+  background: #1a5c1a;
+  color: white;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.anonimo-header h1 {
+  font-size: 1.8rem;
+  color: #1a5c1a;
+  margin-bottom: 8px;
+}
+
+.anonimo-header p {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.anonimo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  background: white;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #1a5c1a;
+  padding: 0 8px;
+}
+
+.anonimo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.anonimo-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.anonimo-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.anonimo-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.anonimo-group input,
+.anonimo-group select,
+.anonimo-group textarea {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.anonimo-group input:focus,
+.anonimo-group select:focus,
+.anonimo-group textarea:focus {
+  border-color: #e94560;
+}
+
+.input-fecha {
+  background-color: #f5f5f5;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.anonimo-preview {
+  margin-top: 10px;
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.anonimo-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.anonimo-btn-volver {
+  padding: 12px 24px;
+  background: white;
+  color: #1a5c1a;
+  border: 2px solid #1a5c1a;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.anonimo-btn-volver:hover {
+  background: #1a5c1a;
+  color: white;
+}
+
+.anonimo-btn-enviar {
+  padding: 12px 28px;
+  background: #e94560;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.anonimo-btn-enviar:hover:not(:disabled) {
+  background: #c0392b;
+}
+
+.anonimo-btn-enviar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.anonimo-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.anonimo-error button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: inherit;
+}
+
+.anonimo-exito {
+  text-align: center;
+  background: white;
+  padding: 60px 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+  margin-top: 40px;
+}
+
+.anonimo-exito-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+}
+
+.anonimo-exito h2 {
+  font-size: 1.8rem;
+  color: #1a5c1a;
+  margin-bottom: 10px;
+}
+
+.anonimo-exito p {
+  color: #666;
+  margin-bottom: 28px;
+}
+
+.anonimo-btn-login {
+  padding: 12px 30px;
+  background: #1a5c1a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.anonimo-btn-login:hover {
+  background: #e94560;
+}
+
+@media (max-width: 600px) {
+  .anonimo-grid { grid-template-columns: 1fr; }
+}

@@ -25,3 +25,8 @@ export const actualizarEstado = async (id, nuevoEstado) => {
 export const eliminarIncidencia = async (id) => {
   await deleteDoc(doc(db, 'incidencias', id));
 };
+
+export const actualizarPrioridad = async (id, prioridad) => {
+  const ref = doc(db, 'incidencias', id);
+  await updateDoc(ref, { prioridad });
+};

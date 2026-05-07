@@ -14,6 +14,7 @@ import Recuperar from "./pages/Recuperar";
 import Home from "./pages/Home";
 import ReportarIncidencia from "./pages/ReportarIncidencia";
 import Admin from "./pages/Admin";
+import ReporteAnonimo from './pages/ReporteAnonimo';
 
 function RutaRaiz() {
   const { rol } = useAuth();
@@ -33,6 +34,7 @@ function App() {
           <Route path="/registro" element={<Registro />} />
           <Route path="/recuperar" element={<Recuperar />} />
           <Route path="/restablecer" element={<Restablecer />} />
+          <Route path="/reporte-anonimo" element={<ReporteAnonimo />} />
           <Route
             path="/galeria"
             element={

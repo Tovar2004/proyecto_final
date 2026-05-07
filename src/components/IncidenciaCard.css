@@ -1,4 +1,4 @@
-/* src/components/IncidenciaCard.css */
+/* src/component/IncidenciaCard.css */
 .card {
   background: white;
   border-radius: 12px;
@@ -35,6 +35,13 @@
   gap: 8px;
 }
 
+.card-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .card-estado {
   display: inline-block;
   color: white;
@@ -43,13 +50,21 @@
   padding: 4px 10px;
   border-radius: 20px;
   text-transform: uppercase;
-  width: fit-content;
+}
+
+.card-prioridad {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: capitalize;
 }
 
 .card-categoria {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #1a1a2e;
+  color: #1a5c1a;
 }
 
 .card-descripcion {
@@ -61,4 +76,14 @@
 .card-fecha {
   font-size: 0.85rem;
   color: #777;
+}
+
+.card-anonimo {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #666;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 20px;
 }

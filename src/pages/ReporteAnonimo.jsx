@@ -1,10 +1,9 @@
-// src/pages/ReportarIncidencia.jsx
+// src/pages/ReporteAnonimo.jsx
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import { crearIncidencia } from '../services/incidenciasService';
 import { subirImagen } from '../services/storageService';
-import { enviarCorreoReporte } from '../services/emailService';
-import './ReportarIncidencia.css';
+import './ReporteAnonimo.css';
 
 const CATEGORIAS = [
   'Daño en aulas o salones',
@@ -35,7 +34,6 @@ const CATEGORIAS = [
   'Emergencia médica',
   'Otro',
 ];
-
 const initialForm = {
   categoria: '',
   otraCategoria: '',
@@ -43,14 +41,14 @@ const initialForm = {
   direccion: '',
 };
 
-function ReportarIncidencia() {
-  const { usuario } = useAuth();
+function ReporteAnonimo() {
   const [form, setForm] = useState(initialForm);
   const [imagen, setImagen] = useState(null);
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [exito, setExito] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -73,32 +71,19 @@ function ReportarIncidencia() {
       setLoading(true);
       const categoriaFinal = form.categoria === 'Otro' ? form.otraCategoria : form.categoria;
       const imagenUrl = await subirImagen(imagen);
-
       await crearIncidencia({
-        clienteId: usuario.uid,
-        nombre: usuario.nombre,
-        apellido: usuario.apellido,
-        telefono: usuario.telefono,
-        correo: usuario.correo,
+        clienteId: null,
+        nombre: 'Anónimo',
+        apellido: '',
+        telefono: '',
+        correo: '',
+        anonima: true,
         categoria: categoriaFinal,
         descripcion: form.descripcion,
         direccion: form.direccion,
         imagenUrl,
       });
-
-      await enviarCorreoReporte({
-        nombre: usuario.nombre,
-        apellido: usuario.apellido,
-        correo: usuario.correo,
-        categoria: categoriaFinal,
-        descripcion: form.descripcion,
-        direccion: form.direccion,
-      });
-
       setExito(true);
-      setForm(initialForm);
-      setImagen(null);
-      setPreview(null);
     } catch (err) {
       console.error(err);
       setError('Ocurrió un error al enviar el reporte. Intenta de nuevo.');
@@ -107,42 +92,42 @@ function ReportarIncidencia() {
     }
   };
 
-  return (
-    <div className="page-container">
-      <h1 className="page-title">Reportar Incidencia</h1>
-
-      {/* INFO DEL CLIENTE LOGUEADO */}
-      <div className="cliente-info">
-        <div className="cliente-avatar">
-          {usuario?.nombre?.charAt(0).toUpperCase()}
-        </div>
-        <div>
-          <strong>{usuario?.nombre} {usuario?.apellido}</strong>
-          <span>{usuario?.correo}</span>
-          {usuario?.telefono && <span>📞 {usuario?.telefono}</span>}
+  if (exito) {
+    return (
+      <div className="anonimo-container">
+        <div className="anonimo-exito">
+          <div className="anonimo-exito-icon">✅</div>
+          <h2>¡Reporte enviado!</h2>
+          <p>Tu incidencia ha sido registrada exitosamente de forma anónima.</p>
+          <button className="anonimo-btn-login" onClick={() => navigate('/login')}>
+            Volver al inicio
+          </button>
         </div>
       </div>
+    );
+  }
 
-      {exito && (
-        <div className="alerta-exito">
-          ✅ ¡Reporte enviado exitosamente!
-          <button onClick={() => setExito(false)}>×</button>
-        </div>
-      )}
+  return (
+    <div className="anonimo-container">
+      <div className="anonimo-header">
+        <div className="anonimo-badge">👤 Reporte Anónimo</div>
+        <h1>Reportar Incidencia</h1>
+        <p>No necesitas una cuenta para reportar. Tu identidad no será registrada.</p>
+      </div>
 
       {error && (
-        <div className="alerta-error">
+        <div className="anonimo-error">
           ⚠️ {error}
           <button onClick={() => setError('')}>×</button>
         </div>
       )}
 
-      <form className="form-reporte" onSubmit={handleSubmit}>
+      <form className="anonimo-form" onSubmit={handleSubmit}>
         <fieldset>
           <legend>Datos de la Incidencia</legend>
-          <div className="form-grid">
+          <div className="anonimo-grid">
 
-            <div className="form-group">
+            <div className="anonimo-group">
               <label>Categoría</label>
               <select name="categoria" value={form.categoria} onChange={handleChange} required>
                 <option value="">Selecciona una categoría</option>
@@ -153,7 +138,7 @@ function ReportarIncidencia() {
             </div>
 
             {form.categoria === 'Otro' && (
-              <div className="form-group">
+              <div className="anonimo-group">
                 <label>Especifica la categoría</label>
                 <input
                   type="text"
@@ -166,7 +151,7 @@ function ReportarIncidencia() {
               </div>
             )}
 
-            <div className="form-group">
+            <div className="anonimo-group">
               <label>Dirección</label>
               <input
                 type="text"
@@ -178,7 +163,7 @@ function ReportarIncidencia() {
               />
             </div>
 
-            <div className="form-group">
+            <div className="anonimo-group">
               <label>Fecha del reporte</label>
               <input
                 type="text"
@@ -191,7 +176,7 @@ function ReportarIncidencia() {
               />
             </div>
 
-            <div className="form-group full-width">
+            <div className="anonimo-group full-width">
               <label>Descripción</label>
               <textarea
                 name="descripcion"
@@ -203,21 +188,26 @@ function ReportarIncidencia() {
               />
             </div>
 
-            <div className="form-group full-width">
+            <div className="anonimo-group full-width">
               <label>Imagen del incidente</label>
               <input type="file" accept="image/*" onChange={handleImagen} required />
-              {preview && <img src={preview} alt="preview" className="img-preview" />}
+              {preview && <img src={preview} alt="preview" className="anonimo-preview" />}
             </div>
 
           </div>
         </fieldset>
 
-        <button type="submit" className="btn-submit" disabled={loading}>
-          {loading ? 'Enviando...' : 'Enviar Reporte'}
-        </button>
+        <div className="anonimo-actions">
+          <button type="button" className="anonimo-btn-volver" onClick={() => navigate('/login')}>
+            ← Volver
+          </button>
+          <button type="submit" className="anonimo-btn-enviar" disabled={loading}>
+            {loading ? 'Enviando...' : 'Enviar Reporte'}
+          </button>
+        </div>
       </form>
     </div>
   );
 }
 
-export default ReportarIncidencia;
+export default ReporteAnonimo;
