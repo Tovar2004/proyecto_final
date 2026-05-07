@@ -4,6 +4,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import { useAuth } from "../context/AuthContext";
 import IncidenciaCard from "../components/IncidenciaCard";
+import { useLocation } from "react-router-dom";
 import "./Home.css";
 
 function Home() {
@@ -14,9 +15,11 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const ordenPrioridad = { alta: 1, media: 2, baja: 3, "sin asignar": 4 };
   const ordenEstado = { pendiente: 1, "en proceso": 2, resuelto: 3 };
+  const location = useLocation();
 
   useEffect(() => {
     const fetchIncidencias = async () => {
+      setLoading(true);
       try {
         const q = query(
           collection(db, "incidencias"),
@@ -31,13 +34,13 @@ function Home() {
           const pA = ordenPrioridad[a.prioridad] ?? 4;
           const pB = ordenPrioridad[b.prioridad] ?? 4;
           if (pA !== pB) return pA - pB;
-
           const eA = ordenEstado[a.estado] ?? 4;
           const eB = ordenEstado[b.estado] ?? 4;
           return eA - eB;
         });
         setIncidencias(ordenada);
         setFiltradas(ordenada);
+        setSoloMias(false);
       } catch (error) {
         console.error("Error al cargar incidencias:", error);
       } finally {
@@ -45,7 +48,7 @@ function Home() {
       }
     };
     fetchIncidencias();
-  }, []);
+  }, [location]);
 
   const handleMisReportes = () => {
     if (soloMias) {
