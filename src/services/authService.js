@@ -39,7 +39,7 @@ export const recuperarPassword = async (correo) => {
   }
 
   const actionCodeSettings = {
-    url: 'http://localhost:5173/restablecer',
+    url: 'https://reporteincidencias.vercel.app/restablecer',
     handleCodeInApp: true,
   };
   await sendPasswordResetEmail(auth, correo, actionCodeSettings);
