@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Restablecer from "./pages/Restablecer";
 import Clientes from "./pages/Clientes";
+import Estadisticas from "./pages/Estadisticas";
 import "./App.css";
 
 import Navbar from "./components/Navbar";
@@ -14,7 +15,7 @@ import Recuperar from "./pages/Recuperar";
 import Home from "./pages/Home";
 import ReportarIncidencia from "./pages/ReportarIncidencia";
 import Admin from "./pages/Admin";
-import ReporteAnonimo from './pages/ReporteAnonimo';
+import ReporteAnonimo from "./pages/ReporteAnonimo";
 
 function RutaRaiz() {
   const { rol } = useAuth();
@@ -56,6 +57,14 @@ function App() {
             element={
               <RutaProtegida rolRequerido="cliente">
                 <ReportarIncidencia />
+              </RutaProtegida>
+            }
+          />
+          <Route
+            path="/estadisticas"
+            element={
+              <RutaProtegida>
+                <Estadisticas />
               </RutaProtegida>
             }
           />

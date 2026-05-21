@@ -49,6 +49,7 @@ function Navbar() {
         {usuario && !esRutaPublica && (
           <>
             <Link to="/galeria">Galería</Link>
+            <Link to="/estadisticas">Estadísticas</Link>
             {rol === "cliente" && <Link to="/reportar">Reportar</Link>}
             {rol === "admin" && (
               <>
