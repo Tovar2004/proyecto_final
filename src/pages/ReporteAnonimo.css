@@ -138,6 +138,63 @@
   transition: background 0.2s;
 }
 
+.img-input-opciones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.img-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 160px;
+  text-align: center;
+}
+
+.img-btn.galeria {
+  background: white;
+  color: #1a5c1a;
+  border: 2px solid #1a5c1a;
+}
+
+.img-btn.galeria:hover {
+  background: #1a5c1a;
+  color: white;
+}
+
+.img-btn.camara {
+  background: #e94560;
+  color: white;
+  border: 2px solid #e94560;
+}
+
+.img-btn.camara:hover {
+  background: #c0392b;
+  border-color: #c0392b;
+}
+
+/* Ocultar botón de cámara en desktop */
+@media (min-width: 769px) {
+  .img-btn.camara {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .img-btn {
+    min-width: 100%;
+  }
+}
+
 .anonimo-btn-login:hover { background: #e94560; }
 
 @media (max-width: 600px) {

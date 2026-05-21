@@ -223,12 +223,30 @@ function ReportarIncidencia() {
 
             <div className="form-group full-width">
               <label>Imagen del incidente</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImagen}
-                required
-              />
+              <div className="img-input-opciones">
+                {/* Opción galería - funciona en todos */}
+                <label className="img-btn galeria">
+                  🖼️ Subir desde galería
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImagen}
+                    style={{ display: "none" }}
+                  />
+                </label>
+
+                {/* Opción cámara - solo móvil */}
+                <label className="img-btn camara">
+                  📷 Tomar foto
+                  <input
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    onChange={handleImagen}
+                    style={{ display: "none" }}
+                  />
+                </label>
+              </div>
               {preview && (
                 <img src={preview} alt="preview" className="img-preview" />
               )}
