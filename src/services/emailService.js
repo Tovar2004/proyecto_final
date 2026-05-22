@@ -1,10 +1,10 @@
 // src/services/emailService.js
 import emailjs from '@emailjs/browser';
 
-const SERVICE_ID = 'service_yg3k96d';  
-const TEMPLATE_REPORTE_ID = 'template_l5jb8qm'; 
-const TEMPLATE_ESTADO_ID = 'template_w180pob';  
-const PUBLIC_KEY = '6FHxKpSscv5sPcERE';  
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_REPORTE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_REPORTE_ID;
+const TEMPLATE_ESTADO_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ESTADO_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export const enviarCorreoReporte = async (datosIncidencia) => {
   const templateParams = {

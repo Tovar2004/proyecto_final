@@ -1,16 +1,23 @@
 # 🚨 Reporte de Incidencias Uniamazonia
 
-Sistema web para el reporte y gestión de incidencias universitarias, desarrollado con React + Firebase.
+Sistema web para el reporte y gestión de incidencias universitarias, desarrollado con React + Firebase y desplegado en Vercel.
+
+🌐 **Demo:** [reporteincidencias.vercel.app](https://reporteincidencias.vercel.app)
 
 ---
 
 ## 🛠️ Tecnologías utilizadas
 
-- **React** (Vite)
-- **Firebase** (Firestore, Authentication, Storage)
-- **EmailJS** (notificaciones por correo)
-- **React Router DOM**
-- **Vercel** (despliegue)
+| Tecnología | Uso |
+|-----------|-----|
+| **React 18 + Vite** | Framework frontend |
+| **Firebase Firestore** | Base de datos en tiempo real |
+| **Firebase Authentication** | Login y registro de usuarios |
+| **Firebase Storage** | Almacenamiento de imágenes |
+| **EmailJS** | Notificaciones por correo |
+| **React Router DOM** | Navegación entre páginas |
+| **Chart.js + react-chartjs-2** | Gráficas de estadísticas |
+| **Vercel** | Despliegue en producción |
 
 ---
 
@@ -20,6 +27,7 @@ Sistema web para el reporte y gestión de incidencias universitarias, desarrolla
 - npm v9 o superior
 - Cuenta en [Firebase](https://firebase.google.com)
 - Cuenta en [EmailJS](https://www.emailjs.com)
+- Cuenta en [Vercel](https://vercel.com) (para despliegue)
 
 ---
 
@@ -40,13 +48,7 @@ npm install
 
 ### 3. Configurar Firebase
 
-El archivo de configuración de Firebase se encuentra en:
-
-```
-src/firebase/firebase.js
-```
-
-Asegúrate de que contenga las credenciales correctas de tu proyecto Firebase:
+El archivo de configuración está en `src/firebase/firebase.js`. Reemplaza con las credenciales de tu proyecto Firebase:
 
 ```javascript
 const firebaseConfig = {
@@ -61,12 +63,12 @@ const firebaseConfig = {
 
 ### 4. Configurar EmailJS
 
-En el archivo `src/services/emailService.js` reemplaza con tus credenciales de EmailJS:
+En `src/services/emailService.js` reemplaza con tus credenciales:
 
 ```javascript
 const SERVICE_ID = 'TU_SERVICE_ID';
-const TEMPLATE_REPORTE_ID = 'TU_TEMPLATE_REPORTE_ID';
-const TEMPLATE_ESTADO_ID = 'TU_TEMPLATE_ESTADO_ID';
+const TEMPLATE_REPORTE_ID = 'TU_TEMPLATE_REPORTE_ID';    // Plantilla reporte inicial
+const TEMPLATE_ESTADO_ID = 'TU_TEMPLATE_ESTADO_ID';      // Plantilla cambio de estado
 const PUBLIC_KEY = 'TU_PUBLIC_KEY';
 ```
 
@@ -76,7 +78,7 @@ const PUBLIC_KEY = 'TU_PUBLIC_KEY';
 npm run dev
 ```
 
-La aplicación estará disponible en: `http://localhost:5173`
+Disponible en: `http://localhost:5173`
 
 ### 6. Compilar para producción
 
@@ -90,13 +92,13 @@ npm run build
 
 ### Servicios requeridos
 
-Activa los siguientes servicios en tu proyecto Firebase:
+Activa en Firebase Console → tu proyecto:
 
-| Servicio | Uso |
-|----------|-----|
-| **Firestore Database** | Almacenamiento de incidencias y clientes |
-| **Authentication** | Login con correo y contraseña |
-| **Storage** | Almacenamiento de imágenes |
+| Servicio | Configuración |
+|----------|--------------|
+| **Firestore Database** | Modo producción |
+| **Authentication** | Habilitar Email/Password |
+| **Storage** | Modo producción |
 
 ### Colecciones en Firestore
 
@@ -142,13 +144,13 @@ service firebase.storage {
 }
 ```
 
-### Crear administrador
+### Crear administrador manualmente
 
-1. Ve a **Firebase Console → Authentication → Users → Add user**
-2. Crea el usuario con correo y contraseña
+1. **Firebase Console → Authentication → Users → Add user**
+2. Ingresa correo y contraseña del admin
 3. Copia el **UID** generado
-4. Ve a **Firestore → Colección `administradores`**
-5. Crea un documento con el UID como ID y estos campos:
+4. **Firestore → Nueva colección `administradores`**
+5. Crea un documento con el UID como ID:
 
 ```
 nombre:   "Admin"
@@ -157,11 +159,28 @@ correo:   "admin@correo.com"
 telefono: "3000000000"
 ```
 
+### Action URL para recuperar contraseña
+
+**Firebase Console → Authentication → Templates → Password reset → Customize action URL:**
+
+```
+https://TU_PROYECTO.vercel.app/restablecer
+```
+
+### Dominios autorizados
+
+**Firebase Console → Authentication → Settings → Authorized domains:**
+
+```
+localhost
+TU_PROYECTO.vercel.app
+```
+
 ---
 
 ## 🌐 Despliegue en Vercel
 
-### 1. Conectar repositorio
+### 1. Importar repositorio
 
 1. Ve a [vercel.com](https://vercel.com) e importa el repositorio de GitHub
 2. Configura:
@@ -169,17 +188,9 @@ telefono: "3000000000"
    - **Build Command:** `npm run build`
    - **Output Directory:** `dist`
 
-### 2. Configurar dominios autorizados en Firebase
+### 2. Archivo `vercel.json`
 
-Ve a **Firebase Console → Authentication → Settings → Authorized domains** y agrega:
-
-```
-TU_PROYECTO.vercel.app
-```
-
-### 3. Archivo vercel.json
-
-El archivo `vercel.json` en la raíz del proyecto es necesario para el manejo de rutas:
+El archivo `vercel.json` en la raíz maneja las rutas SPA:
 
 ```json
 {
@@ -189,80 +200,136 @@ El archivo `vercel.json` en la raíz del proyecto es necesario para el manejo de
 }
 ```
 
-### 4. Action URL para recuperar contraseña
-
-Ve a **Firebase Console → Authentication → Templates → Password reset → Customize action URL** y coloca:
-
-```
-https://TU_PROYECTO.vercel.app/restablecer
-```
-
 ---
 
 ## 📁 Estructura del proyecto
 
 ```
-src/
-├── component/
-│   ├── IncidenciaCard.jsx     # Card de incidencia en galería
-│   └── Navbar.jsx             # Barra de navegación
-├── components/
-│   └── RutaProtegida.jsx      # Protección de rutas por rol
-├── context/
-│   ├── AuthContext.jsx        # Contexto de autenticación
-│   └── useAuth.js             # Hook de autenticación
-├── firebase/
-│   └── firebase.js            # Configuración de Firebase
-├── pages/
-│   ├── Admin.jsx              # Panel de administración
-│   ├── Clientes.jsx           # Gestión de clientes
-│   ├── Home.jsx               # Galería de incidencias
-│   ├── Login.jsx              # Inicio de sesión
-│   ├── Recuperar.jsx          # Recuperar contraseña
-│   ├── Registro.jsx           # Registro de cliente
-│   ├── ReportarIncidencia.jsx # Formulario de reporte
-│   ├── ReporteAnonimo.jsx     # Reporte sin cuenta
-│   └── Restablecer.jsx        # Restablecer contraseña
-└── services/
-    ├── authService.js         # Funciones de autenticación
-    ├── clientesService.js     # CRUD de clientes
-    ├── emailService.js        # Envío de correos
-    ├── incidenciasService.js  # CRUD de incidencias
-    └── storageService.js      # Subida de imágenes
+proyecto/
+├── public/
+│   └── _redirects              # Redirects para Vercel
+├── src/
+│   ├── component/
+│   │   ├── IncidenciaCard.jsx  # Card de incidencia en galería
+│   │   ├── IncidenciaCard.css
+│   │   ├── Navbar.jsx          # Barra de navegación
+│   │   └── Navbar.css
+│   ├── components/
+│   │   └── RutaProtegida.jsx   # Protección de rutas por rol
+│   ├── context/
+│   │   ├── AuthContext.jsx     # Contexto de autenticación global
+│   │   └── useAuth.js          # Hook de autenticación
+│   ├── firebase/
+│   │   └── firebase.js         # Configuración de Firebase
+│   ├── pages/
+│   │   ├── Admin.jsx           # Panel de administración
+│   │   ├── Admin.css
+│   │   ├── Clientes.jsx        # Gestión de clientes
+│   │   ├── Clientes.css
+│   │   ├── Estadisticas.jsx    # Dashboard de estadísticas
+│   │   ├── Estadisticas.css
+│   │   ├── Home.jsx            # Galería de incidencias
+│   │   ├── Home.css
+│   │   ├── Login.jsx           # Inicio de sesión
+│   │   ├── Login.css
+│   │   ├── Recuperar.jsx       # Solicitar recuperación
+│   │   ├── Recuperar.css
+│   │   ├── Registro.jsx        # Registro de cliente
+│   │   ├── Registro.css
+│   │   ├── ReportarIncidencia.jsx  # Formulario de reporte
+│   │   ├── ReportarIncidencia.css
+│   │   ├── ReporteAnonimo.jsx  # Reporte sin cuenta
+│   │   ├── ReporteAnonimo.css
+│   │   ├── Restablecer.jsx     # Nueva contraseña
+│   │   └── Restablecer.css
+│   ├── services/
+│   │   ├── authService.js      # Funciones de autenticación
+│   │   ├── clientesService.js  # CRUD de clientes
+│   │   ├── emailService.js     # Envío de correos via EmailJS
+│   │   ├── incidenciasService.js  # CRUD de incidencias
+│   │   └── storageService.js   # Subida de imágenes a Firebase Storage
+│   ├── App.css
+│   ├── App.jsx                 # Rutas principales
+│   └── main.jsx
+├── index.html
+├── vercel.json                 # Configuración de rutas Vercel
+├── vite.config.js
+└── package.json
 ```
 
 ---
 
 ## 👥 Roles del sistema
 
-| Rol | Acceso |
-|-----|--------|
-| **Cliente** | Galería, reportar incidencia, ver sus reportes |
-| **Administrador** | Todo lo anterior + panel admin, gestión de clientes, cambio de estado y prioridad |
-| **Anónimo** | Solo reportar incidencia sin cuenta |
+| Rol | Rutas disponibles |
+|-----|------------------|
+| **Cliente** | Galería, Reportar incidencia, Estadísticas, Mis reportes |
+| **Administrador** | Todo lo anterior + Panel admin, Clientes, cambio de estado y prioridad, eliminar |
+| **Anónimo** | Solo reportar incidencia sin cuenta (desde login) |
 
 ---
 
-## 📧 Notificaciones por correo
+## 📱 Funcionalidades principales
 
-El sistema envía correos automáticos en estos eventos:
+### Para clientes
+- ✅ Registro e inicio de sesión
+- ✅ Reportar incidencias con imagen (cámara en móvil / galería en desktop)
+- ✅ Ver galería de incidencias con filtro "Mis reportes"
+- ✅ Recibir notificación por correo al reportar
+- ✅ Recibir notificación por correo al cambiar estado
+- ✅ Recuperar contraseña por correo
+- ✅ Ver estadísticas generales
 
-| Evento | Destinatario |
-|--------|-------------|
-| Nueva incidencia reportada | Cliente |
-| Cambio de estado de incidencia | Cliente |
-| Recuperación de contraseña | Cliente/Admin |
+### Para administrador
+- ✅ Ver todas las incidencias en tabla
+- ✅ Filtrar por cliente, estado y prioridad
+- ✅ Cambiar estado de incidencias (pendiente → en proceso → resuelto)
+- ✅ Asignar prioridad (alta, media, baja)
+- ✅ Eliminar incidencias resueltas
+- ✅ Ver y eliminar clientes registrados
+- ✅ Ver imagen ampliada de cada incidencia
+- ✅ Dashboard de estadísticas
+
+### General
+- ✅ Reporte anónimo sin necesidad de cuenta
+- ✅ Diseño responsive (móvil y desktop)
+- ✅ Galería ordenada por prioridad y estado
+- ✅ Incidencias anónimas identificadas visualmente
 
 ---
 
-## 📱 Compatibilidad
+## 📧 Notificaciones por correo (EmailJS)
 
-- ✅ Desktop (Chrome, Firefox, Edge)
-- ✅ Móvil (Chrome, Safari)
-- ✅ Tablet
+| Evento | Destinatario | Template |
+|--------|-------------|----------|
+| Nueva incidencia reportada | Cliente | `TEMPLATE_REPORTE_ID` |
+| Cambio de estado de incidencia | Cliente | `TEMPLATE_ESTADO_ID` |
+
+> Las incidencias anónimas **no envían correo** ya que no tienen correo registrado.
+
+---
+
+## 📊 Dashboard de estadísticas
+
+Disponible para clientes y administrador en `/estadisticas`:
+
+- Total de incidencias reportadas
+- Incidencias por estado (pendiente, en proceso, resuelto)
+- Distribución por prioridad (alta, media, baja)
+- Top categorías más reportadas
+- Últimas incidencias registradas
+- Porcentaje de incidencias anónimas
+
+---
+
+## 📱 Captura de imagen en móvil
+
+En el formulario de reporte:
+- **Móvil:** botón para abrir cámara (foto directa) + botón para subir desde galería
+- **Desktop:** solo opción de subir desde galería
 
 ---
 
 ## 📄 Licencia
 
-Proyecto académico — Universidad de la Amazonia 2026.
+Proyecto académico — Ingeniería de Sistemas, Universidad de la Amazonia 2026.
