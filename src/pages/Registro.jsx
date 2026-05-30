@@ -5,12 +5,8 @@ import { registrarCliente } from "../services/authService";
 import "./Registro.css";
 
 const initialForm = {
-  nombre: "",
-  apellido: "",
-  telefono: "",
-  correo: "",
-  password: "",
-  confirmar: "",
+  nombre: "", apellido: "", telefono: "",
+  correo: "", password: "", confirmar: "",
 };
 
 function Registro() {
@@ -19,28 +15,15 @@ function Registro() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (form.password !== form.confirmar) {
-      setError("Las contraseñas no coinciden.");
-      return;
-    }
-    if (form.password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres.");
-      return;
-    }
-    if (form.telefono.length !== 10) {
-      setError("El teléfono debe tener exactamente 10 dígitos.");
-      return;
-    }
-    if (!form.telefono.startsWith("3")) {
-      setError("El teléfono debe empezar por 3 (número colombiano).");
-      return;
-    }
+    if (form.password !== form.confirmar) { setError("Las contraseñas no coinciden."); return; }
+    if (form.password.length < 6) { setError("La contraseña debe tener al menos 6 caracteres."); return; }
+    if (form.telefono.length !== 10) { setError("El teléfono debe tener exactamente 10 dígitos."); return; }
+    if (!form.telefono.startsWith("3")) { setError("El teléfono debe empezar por 3 (número colombiano)."); return; }
     setLoading(true);
     try {
       await registrarCliente(form);
@@ -53,95 +36,55 @@ function Registro() {
   };
 
   return (
-    <div className="registro-container">
-      <div className="registro-card">
-        <div className="registro-logo">📝</div>
-        <h2>Crear Cuenta</h2>
-        <p>Regístrate para reportar incidencias</p>
+    <div className="glass-page">
+      <div className="glass-blob glass-blob-1" />
+      <div className="glass-blob glass-blob-2" />
+      <div className="glass-blob glass-blob-3" />
 
-        {error && <div className="registro-error">⚠️ {error}</div>}
+      <div className="glass-card glass-card-wide">
+        <div className="glass-logo">📝</div>
+        <h2 className="glass-title">Crear Cuenta</h2>
+        <p className="glass-subtitle">Universidad de la Amazonia</p>
 
-        <form onSubmit={handleSubmit}>
-          <div className="registro-grid">
-            <div className="registro-group">
+        {error && <div className="glass-error">⚠️ {error}</div>}
+
+        <form onSubmit={handleSubmit} className="glass-form">
+          <div className="glass-grid">
+            <div className="glass-group">
               <label>Nombre</label>
-              <input
-                type="text"
-                name="nombre"
-                value={form.nombre}
-                onChange={handleChange}
-                placeholder="Tu nombre"
-                required
-              />
+              <input type="text" name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" required />
             </div>
-            <div className="registro-group">
+            <div className="glass-group">
               <label>Apellido</label>
-              <input
-                type="text"
-                name="apellido"
-                value={form.apellido}
-                onChange={handleChange}
-                placeholder="Tu apellido"
-                required
-              />
+              <input type="text" name="apellido" value={form.apellido} onChange={handleChange} placeholder="Tu apellido" required />
             </div>
-            <div className="registro-group">
+            <div className="glass-group">
               <label>Teléfono</label>
               <input
-                type="tel"
-                name="telefono"
-                value={form.telefono}
-                onChange={(e) => {
-                  const valor = e.target.value.replace(/\D/g, "");
-                  if (valor.length <= 10) {
-                    setForm({ ...form, telefono: valor });
-                  }
-                }}
-                placeholder="3001234567"
-                maxLength={10}
-                required
+                type="tel" name="telefono" value={form.telefono}
+                onChange={(e) => { const v = e.target.value.replace(/\D/g,""); if(v.length<=10) setForm({...form,telefono:v}); }}
+                placeholder="3001234567" maxLength={10} required
               />
             </div>
-            <div className="registro-group">
+            <div className="glass-group">
               <label>Correo electrónico</label>
-              <input
-                type="email"
-                name="correo"
-                value={form.correo}
-                onChange={handleChange}
-                placeholder="tu@correo.com"
-                required
-              />
+              <input type="email" name="correo" value={form.correo} onChange={handleChange} placeholder="tu@correo.com" required />
             </div>
-            <div className="registro-group">
+            <div className="glass-group">
               <label>Contraseña</label>
-              <input
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="••••••••"
-                required
-              />
+              <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="••••••••" required />
             </div>
-            <div className="registro-group">
+            <div className="glass-group">
               <label>Confirmar contraseña</label>
-              <input
-                type="password"
-                name="confirmar"
-                value={form.confirmar}
-                onChange={handleChange}
-                placeholder="••••••••"
-                required
-              />
+              <input type="password" name="confirmar" value={form.confirmar} onChange={handleChange} placeholder="••••••••" required />
             </div>
           </div>
-          <button type="submit" className="registro-btn" disabled={loading}>
+          <button type="submit" className="glass-btn" disabled={loading}>
             {loading ? "Registrando..." : "Crear Cuenta"}
           </button>
         </form>
 
-        <p className="registro-login">
+        <p className="glass-footer">
           ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
         </p>
       </div>

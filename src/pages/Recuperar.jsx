@@ -25,22 +25,26 @@ function Recuperar() {
   };
 
   return (
-    <div className="recuperar-container">
-      <div className="recuperar-card">
-        <div className="recuperar-logo">🔑</div>
-        <h2>Recuperar Contraseña</h2>
-        <p>Te enviaremos un enlace para restablecer tu contraseña</p>
+    <div className="glass-page">
+      <div className="glass-blob glass-blob-1" />
+      <div className="glass-blob glass-blob-2" />
+      <div className="glass-blob glass-blob-3" />
+
+      <div className="glass-card">
+        <div className="glass-logo">🔑</div>
+        <h2 className="glass-title">Recuperar Contraseña</h2>
+        <p className="glass-subtitle">Te enviaremos un enlace a tu correo</p>
 
         {enviado ? (
-          <div className="recuperar-exito">
+          <div className="glass-success">
             ✅ Correo enviado. Revisa tu bandeja de entrada.
             <br /><br />
-            <Link to="/login" className="recuperar-link">← Volver al login</Link>
+            <Link to="/login">← Volver al login</Link>
           </div>
         ) : (
-          <form onSubmit={handleSubmit}>
-            {error && <div className="recuperar-error">⚠️ {error}</div>}
-            <div className="recuperar-group">
+          <form onSubmit={handleSubmit} className="glass-form">
+            {error && <div className="glass-error">⚠️ {error}</div>}
+            <div className="glass-group">
               <label>Correo electrónico</label>
               <input
                 type="email"
@@ -50,10 +54,10 @@ function Recuperar() {
                 required
               />
             </div>
-            <button type="submit" className="recuperar-btn" disabled={loading}>
+            <button type="submit" className="glass-btn" disabled={loading}>
               {loading ? 'Enviando...' : 'Enviar enlace'}
             </button>
-            <p className="recuperar-volver">
+            <p className="glass-footer">
               <Link to="/login">← Volver al login</Link>
             </p>
           </form>

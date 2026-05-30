@@ -254,9 +254,11 @@ function ReportarIncidencia() {
           </div>
         </fieldset>
 
-        <button type="submit" className="btn-submit" disabled={loading}>
-          {loading ? "Enviando..." : "Enviar Reporte"}
-        </button>
+        <div className="form-reporte-actions">
+          <button type="submit" className="btn-submit" disabled={loading}>
+            {loading ? "Enviando..." : "Enviar Reporte"}
+          </button>
+        </div>
       </form>
     </div>
   );

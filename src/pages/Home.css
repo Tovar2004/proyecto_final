@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 24px 0 16px;
+  margin: 28px 0 20px;
   padding: 0 8px;
 }
 
@@ -12,37 +12,72 @@
 .btn-mis-reportes {
   position: absolute;
   right: 0;
-  padding: 8px 16px;
+  padding: 9px 18px;
   background: white;
-  color: #1a5c1a;
-  border: 2px solid #1a5c1a;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
   border-radius: 30px;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all var(--transition);
   white-space: nowrap;
+  font-family: inherit;
+  box-shadow: var(--shadow-sm);
 }
 
-.btn-mis-reportes:hover { background: #1a5c1a; color: white; }
-.btn-mis-reportes.activo { background: #e94560; border-color: #e94560; color: white; }
+.btn-mis-reportes:hover {
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 4px 14px rgba(26,92,26,0.3);
+  transform: translateY(-1px);
+}
 
-.loading-text, .empty-text {
+.btn-mis-reportes.activo {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  box-shadow: 0 4px 14px rgba(233,69,96,0.3);
+}
+
+.loading-text,
+.empty-text {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 80px;
   font-size: 1rem;
-  color: #888;
+  color: var(--text-3);
+}
+
+.empty-text::before {
+  content: '📭';
+  display: block;
+  font-size: 2.5rem;
+  margin-bottom: 12px;
 }
 
 .galeria-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 16px 0;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+  padding: 8px 0 24px;
 }
+
+/* Stagger cards using :nth-child — up to 12 items */
+.galeria-grid .card:nth-child(1)  { animation-delay: 0.04s; }
+.galeria-grid .card:nth-child(2)  { animation-delay: 0.08s; }
+.galeria-grid .card:nth-child(3)  { animation-delay: 0.12s; }
+.galeria-grid .card:nth-child(4)  { animation-delay: 0.16s; }
+.galeria-grid .card:nth-child(5)  { animation-delay: 0.20s; }
+.galeria-grid .card:nth-child(6)  { animation-delay: 0.24s; }
+.galeria-grid .card:nth-child(7)  { animation-delay: 0.28s; }
+.galeria-grid .card:nth-child(8)  { animation-delay: 0.32s; }
+.galeria-grid .card:nth-child(9)  { animation-delay: 0.36s; }
+.galeria-grid .card:nth-child(10) { animation-delay: 0.40s; }
+.galeria-grid .card:nth-child(11) { animation-delay: 0.44s; }
+.galeria-grid .card:nth-child(12) { animation-delay: 0.48s; }
 
 @media (max-width: 600px) {
   .galeria-header { flex-direction: column; gap: 12px; }
   .btn-mis-reportes { position: static; width: 100%; text-align: center; }
-  .galeria-grid { grid-template-columns: 1fr; gap: 14px; }
+  .galeria-grid { grid-template-columns: 1fr; gap: 16px; }
 }
