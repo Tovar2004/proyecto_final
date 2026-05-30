@@ -75,7 +75,25 @@
 }
 
 .clientes-tabla tr:last-child td { border-bottom: none; }
-.clientes-tabla tbody tr:hover td { background-color: #fafbfc; }
+
+@keyframes rowSlide {
+  from { opacity:0; transform:translateX(-10px); }
+  to   { opacity:1; transform:none; }
+}
+
+.clientes-tabla tbody tr {
+  animation: rowSlide 0.35s var(--ease-out) both;
+}
+.clientes-tabla tbody tr:nth-child(1)  { animation-delay: 0.05s; }
+.clientes-tabla tbody tr:nth-child(2)  { animation-delay: 0.09s; }
+.clientes-tabla tbody tr:nth-child(3)  { animation-delay: 0.13s; }
+.clientes-tabla tbody tr:nth-child(4)  { animation-delay: 0.17s; }
+.clientes-tabla tbody tr:nth-child(5)  { animation-delay: 0.21s; }
+.clientes-tabla tbody tr:nth-child(6)  { animation-delay: 0.25s; }
+.clientes-tabla tbody tr:nth-child(7)  { animation-delay: 0.29s; }
+.clientes-tabla tbody tr:nth-child(8)  { animation-delay: 0.33s; }
+
+.clientes-tabla tbody tr:hover td { background-color: #f0f9f0; transition: background 0.18s ease; }
 
 .cliente-avatar {
   width: 38px;
@@ -167,6 +185,13 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+    animation: fadeUp 0.4s var(--ease-spring) both;
+    transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+  }
+
+  .clientes-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
   }
 
   .clientes-card-header {

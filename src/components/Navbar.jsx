@@ -20,8 +20,6 @@ function Navbar() {
   ];
   const esRutaPublica = rutasPublicas.includes(location.pathname);
   const esLogin = location.pathname === "/login";
-  // En rutas de auth el navbar se integra con el fondo glass
-  const esAuthGlass = ["/login","/registro","/recuperar","/restablecer"].includes(location.pathname);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,7 +42,7 @@ function Navbar() {
   };
 
   return (
-    <nav className={`navbar${esAuthGlass ? " navbar-glass" : ""}`}>
+    <nav className="navbar">
       <div className="navbar-brand">
         <span className="navbar-brand-icon">🚨</span>
         Reporte de Incidencias Uniamazonia
