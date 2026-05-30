@@ -14,8 +14,9 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-  color: white;
+  background: var(--primary-ultra-light);
+  color: var(--primary-dark);
+  border: 1px solid rgba(26,92,26,0.2);
   padding: 6px 18px;
   border-radius: 20px;
   font-size: 0.78rem;

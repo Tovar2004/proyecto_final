@@ -20,13 +20,11 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
   --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.3, 0.64, 1);
+  --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -34,8 +32,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
-
-  /* Fondo con malla de gradientes suaves — luz natural, tono campus */
   background-color: #eef4ee;
   background-image:
     radial-gradient(ellipse at 0%   0%,   rgba(160,220,160,0.40) 0%, transparent 52%),
@@ -46,22 +42,129 @@ body {
   background-attachment: fixed;
 }
 
-.page-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 20px;
-}
+.page-container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
 
 .page-title {
-  text-align: center;
-  margin: 28px 0 20px;
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: -0.02em;
+  text-align: center; margin: 28px 0 20px;
+  font-size: 1.75rem; font-weight: 700; color: var(--primary); letter-spacing: -0.02em;
+  animation: fadeDown 0.5s var(--ease-spring) both;
 }
 
-@media (max-width: 768px) {
-  .page-title { font-size: 1.35rem; }
+@media (max-width: 768px) { .page-title { font-size: 1.35rem; } }
+
+/* ═══════════════════════════════
+   KEYFRAMES
+═══════════════════════════════ */
+@keyframes fadeUp   { from { opacity:0; transform:translateY(28px);  } to { opacity:1; transform:none; } }
+@keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:none; } }
+@keyframes fadeLeft { from { opacity:0; transform:translateX(-24px); } to { opacity:1; transform:none; } }
+@keyframes fadeScale{ from { opacity:0; transform:scale(0.92);       } to { opacity:1; transform:none; } }
+@keyframes shimmer  { 0%{background-position:-200% center} 100%{background-position:200% center} }
+
+/* ═══════════════════════════════
+   ANIMACIONES DE PÁGINA
+═══════════════════════════════ */
+.stats-hero, .galeria-header, .admin-header,
+.clientes-header, .anonimo-header {
+  animation: fadeDown 0.5s var(--ease-spring) both;
 }
 
+.admin-tabla-wrapper, .clientes-tabla-wrapper {
+  animation: fadeUp 0.55s var(--ease-out) 0.1s both;
+}
+
+.form-reporte, .anonimo-form {
+  animation: fadeUp 0.55s var(--ease-spring) 0.08s both;
+}
+
+.cliente-info { animation: fadeLeft 0.45s var(--ease-spring) 0.05s both; }
+
+.alerta-exito, .alerta-error { animation: fadeDown 0.35s var(--ease-spring) both; }
+
+/* Chart cards */
+.chart-card {
+  animation: fadeUp 0.5s var(--ease-spring) both;
+  transition: box-shadow 0.3s ease, transform 0.3s var(--ease-spring);
+}
+.chart-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.stats-charts .chart-card:nth-child(1) { animation-delay: 0.10s; }
+.stats-charts .chart-card:nth-child(2) { animation-delay: 0.17s; }
+.stats-charts .chart-card:nth-child(3) { animation-delay: 0.24s; }
+.stats-charts .chart-card:nth-child(4) { animation-delay: 0.31s; }
+
+/* KPI cards */
+.kpi-card {
+  animation: fadeUp 0.5s var(--ease-spring) both;
+  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
+}
+.kpi-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: var(--shadow-md); }
+.stats-kpi .kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.stats-kpi .kpi-card:nth-child(2) { animation-delay: 0.10s; }
+.stats-kpi .kpi-card:nth-child(3) { animation-delay: 0.15s; }
+.stats-kpi .kpi-card:nth-child(4) { animation-delay: 0.20s; }
+.stats-kpi .kpi-card:nth-child(5) { animation-delay: 0.25s; }
+
+/* Prio cards */
+.prio-card { transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease; }
+.prio-card:hover { transform: translateY(-4px) scale(1.04); box-shadow: var(--shadow-md); }
+
+/* Cards galería */
+.galeria-grid .card-perspective:nth-child(1)  { animation-delay: 0.04s; }
+.galeria-grid .card-perspective:nth-child(2)  { animation-delay: 0.09s; }
+.galeria-grid .card-perspective:nth-child(3)  { animation-delay: 0.14s; }
+.galeria-grid .card-perspective:nth-child(4)  { animation-delay: 0.19s; }
+.galeria-grid .card-perspective:nth-child(5)  { animation-delay: 0.24s; }
+.galeria-grid .card-perspective:nth-child(6)  { animation-delay: 0.29s; }
+.galeria-grid .card-perspective:nth-child(7)  { animation-delay: 0.34s; }
+.galeria-grid .card-perspective:nth-child(8)  { animation-delay: 0.39s; }
+.galeria-grid .card-perspective:nth-child(9)  { animation-delay: 0.44s; }
+.galeria-grid .card-perspective:nth-child(10) { animation-delay: 0.49s; }
+.galeria-grid .card-perspective:nth-child(11) { animation-delay: 0.54s; }
+.galeria-grid .card-perspective:nth-child(12) { animation-delay: 0.59s; }
+
+/* Filas tabla */
+.admin-tabla tbody tr,
+.clientes-tabla tbody tr { transition: background 0.18s ease; }
+
+/* ═══════════════════════════════
+   INPUTS GLOBALES — foco animado
+═══════════════════════════════ */
+input, select, textarea {
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background var(--transition) !important;
+}
+
+/* Efecto shimmer en loading */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% auto;
+  animation: shimmer 1.5s linear infinite;
+  border-radius: var(--radius-sm);
+}
+
+/* ═══════════════════════════════
+   BOTONES GLOBALES — ripple click
+═══════════════════════════════ */
+button, .img-btn, .glass-btn, .auth-btn, .btn-submit,
+.anonimo-btn-enviar, .anonimo-btn-volver, .recuperar-btn,
+.restablecer-btn, .registro-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after, .img-btn::after, .glass-btn::after,
+.btn-submit::after, .anonimo-btn-enviar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.18);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+button:active::after, .img-btn:active::after,
+.glass-btn:active::after, .btn-submit:active::after,
+.anonimo-btn-enviar:active::after { opacity: 1; }

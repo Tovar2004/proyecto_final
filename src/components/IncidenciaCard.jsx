@@ -2,10 +2,11 @@
 import { useRef, useCallback } from "react";
 import "./IncidenciaCard.css";
 
-const estadoColor = {
-  pendiente:    "#f39c12",
-  "en proceso": "#3498db",
-  resuelto:     "#2ecc71",
+// bg + text para cada estado (texto oscuro, fondo suave)
+const estadoConfig = {
+  pendiente:    { bg: "#fef3c7", color: "#92400e" },
+  "en proceso": { bg: "#dbeafe", color: "#1e40af" },
+  resuelto:     { bg: "#d1fae5", color: "#065f46" },
 };
 
 const prioridadConfig = {
@@ -105,7 +106,10 @@ function IncidenciaCard({ item }) {
             <div className="card-badges">
               <span
                 className="card-estado"
-                style={{ backgroundColor: estadoColor[estado] || "#999" }}
+                style={{
+                  backgroundColor: estadoConfig[estado]?.bg || "#f3f4f6",
+                  color: estadoConfig[estado]?.color || "#374151",
+                }}
               >
                 {estado}
               </span>

@@ -45,7 +45,7 @@
 }
 
 .navbar-links a {
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.80);
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 500;
@@ -53,16 +53,32 @@
   border-radius: 8px;
   transition: background var(--transition), color var(--transition);
   white-space: nowrap;
+  position: relative;
 }
 
 .navbar-links a:hover {
-  background-color: rgba(255,255,255,0.15);
+  background-color: rgba(255,255,255,0.14);
   color: white;
 }
 
+/* Enlace activo — indicador verde brillante */
 .navbar-links a.active {
-  background-color: rgba(255,255,255,0.2);
-  color: white;
+  color: #ffffff;
+  font-weight: 700;
+  background: rgba(255,255,255,0.18);
+}
+
+.navbar-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background: #4ade80;
+  border-radius: 99px;
+  box-shadow: 0 0 8px rgba(74,222,128,0.7);
 }
 
 .navbar-derecha {

@@ -1,5 +1,5 @@
 // src/pages/Estadisticas.jsx
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
@@ -8,9 +8,43 @@ import './Estadisticas.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
+/* ── Hook: contador animado ── */
+function useCounter(target, active, duration = 1100) {
+  const [value, setValue] = useState(0);
+  const raf = useRef(null);
+
+  useEffect(() => {
+    if (!active || target === 0) { setValue(target); return; }
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      setValue(Math.round(eased * target));
+      if (p < 1) raf.current = requestAnimationFrame(tick);
+    };
+    raf.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf.current);
+  }, [target, active, duration]);
+
+  return value;
+}
+
+/* ── Componente KPI con contador ── */
+function KpiCard({ className, icon, num, label, active, delay = 0 }) {
+  const count = useCounter(num, active, 1100 + delay);
+  return (
+    <div className={`kpi-card ${className}`} style={{ animationDelay: `${delay}ms` }}>
+      <div className="kpi-icon">{icon}</div>
+      <div className="kpi-num">{count}</div>
+      <div className="kpi-label">{label}</div>
+    </div>
+  );
+}
+
 function Estadisticas() {
   const [incidencias, setIncidencias] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading]         = useState(true);
+  const [listo, setListo]             = useState(false); // dispara animaciones
 
   useEffect(() => {
     let activo = true;
@@ -29,20 +63,28 @@ function Estadisticas() {
     return () => { activo = false; };
   }, []);
 
-  const total = incidencias.length;
+  // Pequeño delay para que las animaciones de entrada terminen
+  useEffect(() => {
+    if (!loading) {
+      const t = setTimeout(() => setListo(true), 200);
+      return () => clearTimeout(t);
+    }
+  }, [loading]);
+
+  const total     = incidencias.length;
   const pendientes = incidencias.filter(i => i.estado === 'pendiente').length;
-  const enProceso = incidencias.filter(i => i.estado === 'en proceso').length;
-  const resueltas = incidencias.filter(i => i.estado === 'resuelto').length;
-  const anonimas = incidencias.filter(i => i.anonima).length;
-  const alta = incidencias.filter(i => i.prioridad === 'alta').length;
+  const enProceso  = incidencias.filter(i => i.estado === 'en proceso').length;
+  const resueltas  = incidencias.filter(i => i.estado === 'resuelto').length;
+  const anonimas   = incidencias.filter(i => i.anonima).length;
+  const alta  = incidencias.filter(i => i.prioridad === 'alta').length;
   const media = incidencias.filter(i => i.prioridad === 'media').length;
-  const baja = incidencias.filter(i => i.prioridad === 'baja').length;
+  const baja  = incidencias.filter(i => i.prioridad === 'baja').length;
   const pct = n => total > 0 ? Math.round((n / total) * 100) : 0;
 
   const catCount = {};
   incidencias.forEach(i => { catCount[i.categoria] = (catCount[i.categoria] || 0) + 1; });
   const topCats = Object.entries(catCount).sort((a, b) => b[1] - a[1]).slice(0, 6);
-  const maxCat = topCats[0]?.[1] || 1;
+  const maxCat  = topCats[0]?.[1] || 1;
 
   const recientes = [...incidencias]
     .filter(i => i.fecha)
@@ -53,9 +95,9 @@ function Estadisticas() {
     labels: ['Pendiente', 'En proceso', 'Resuelto'],
     datasets: [{
       data: [pendientes, enProceso, resueltas],
-      backgroundColor: ['#BA7517', '#378ADD', '#639922'],
+      backgroundColor: ['#f59e0b', '#3b82f6', '#22c55e'],
       borderWidth: 0,
-      hoverOffset: 4,
+      hoverOffset: 6,
     }]
   };
 
@@ -63,8 +105,8 @@ function Estadisticas() {
     labels: ['Alta', 'Media', 'Baja'],
     datasets: [{
       data: [alta, media, baja],
-      backgroundColor: ['#D85A30', '#EF9F27', '#639922'],
-      borderRadius: 6,
+      backgroundColor: ['#ef4444', '#f59e0b', '#22c55e'],
+      borderRadius: 8,
       borderSkipped: false,
     }]
   };
@@ -87,51 +129,32 @@ function Estadisticas() {
         <p>Resumen general de incidencias reportadas</p>
       </div>
 
-      {/* KPI CARDS */}
+      {/* KPI CARDS con contador */}
       <div className="stats-kpi">
-        <div className="kpi-card total">
-          <div className="kpi-icon">📋</div>
-          <div className="kpi-num">{total}</div>
-          <div className="kpi-label">Total reportadas</div>
-        </div>
-        <div className="kpi-card pendiente">
-          <div className="kpi-icon">⏳</div>
-          <div className="kpi-num">{pendientes}</div>
-          <div className="kpi-label">Pendientes ({pct(pendientes)}%)</div>
-        </div>
-        <div className="kpi-card proceso">
-          <div className="kpi-icon">🔄</div>
-          <div className="kpi-num">{enProceso}</div>
-          <div className="kpi-label">En proceso ({pct(enProceso)}%)</div>
-        </div>
-        <div className="kpi-card resuelto">
-          <div className="kpi-icon">✅</div>
-          <div className="kpi-num">{resueltas}</div>
-          <div className="kpi-label">Resueltas ({pct(resueltas)}%)</div>
-        </div>
-        <div className="kpi-card anonima">
-          <div className="kpi-icon">👤</div>
-          <div className="kpi-num">{anonimas}</div>
-          <div className="kpi-label">Anónimas ({pct(anonimas)}%)</div>
-        </div>
+        <KpiCard className="total"    icon="📋" num={total}     label="Total reportadas"           active={listo} delay={0}   />
+        <KpiCard className="pendiente" icon="⏳" num={pendientes} label={`Pendientes (${pct(pendientes)}%)`} active={listo} delay={80}  />
+        <KpiCard className="proceso"  icon="🔄" num={enProceso} label={`En proceso (${pct(enProceso)}%)`}   active={listo} delay={160} />
+        <KpiCard className="resuelto" icon="✅" num={resueltas} label={`Resueltas (${pct(resueltas)}%)`}    active={listo} delay={240} />
+        <KpiCard className="anonima"  icon="👤" num={anonimas}  label={`Anónimas (${pct(anonimas)}%)`}      active={listo} delay={320} />
       </div>
 
       {/* CHARTS */}
       <div className="stats-charts">
 
-        {/* Dona de estados */}
+        {/* Dona */}
         <div className="chart-card">
           <h3>Distribución por estado</h3>
           <div className="chart-legend">
-            <span><span className="dot" style={{background:'#BA7517'}}></span>Pendiente {pendientes}</span>
-            <span><span className="dot" style={{background:'#378ADD'}}></span>En proceso {enProceso}</span>
-            <span><span className="dot" style={{background:'#639922'}}></span>Resuelto {resueltas}</span>
+            <span><span className="dot" style={{background:'#f59e0b'}}></span>Pendiente {pendientes}</span>
+            <span><span className="dot" style={{background:'#3b82f6'}}></span>En proceso {enProceso}</span>
+            <span><span className="dot" style={{background:'#22c55e'}}></span>Resuelto {resueltas}</span>
           </div>
           <div className="chart-wrap-sm">
             <Doughnut data={donutData} options={{
-              cutout: '65%',
+              cutout: '68%',
               plugins: { legend: { display: false } },
-              maintainAspectRatio: false
+              maintainAspectRatio: false,
+              animation: { duration: 1000, easing: 'easeOutQuart' },
             }} />
           </div>
         </div>
@@ -160,20 +183,24 @@ function Estadisticas() {
                 x: { grid: { display: false } },
                 y: { grid: { color: 'rgba(128,128,128,0.1)' }, ticks: { stepSize: 1 } }
               },
-              maintainAspectRatio: false
+              maintainAspectRatio: false,
+              animation: { duration: 900, easing: 'easeOutQuart' },
             }} />
           </div>
         </div>
 
-        {/* Categorías */}
+        {/* Categorías con barras animadas */}
         <div className="chart-card chart-full">
           <h3>Incidencias por categoría</h3>
           <div className="cat-bars">
-            {topCats.map(([cat, count]) => (
-              <div className="cat-row" key={cat}>
+            {topCats.map(([cat, count], i) => (
+              <div className="cat-row" key={cat} style={{ animationDelay: `${i * 80}ms` }}>
                 <div className="cat-label" title={cat}>{cat}</div>
                 <div className="cat-bar-wrap">
-                  <div className="cat-bar" style={{ width: `${Math.round((count / maxCat) * 100)}%` }}>
+                  <div
+                    className="cat-bar"
+                    style={{ width: listo ? `${Math.round((count / maxCat) * 100)}%` : '0%' }}
+                  >
                     {count}
                   </div>
                 </div>
@@ -187,8 +214,12 @@ function Estadisticas() {
           <div className="chart-card chart-full">
             <h3>Últimas incidencias reportadas</h3>
             <div className="recientes">
-              {recientes.map(item => (
-                <div className="reciente-row" key={item.id}>
+              {recientes.map((item, i) => (
+                <div
+                  className="reciente-row"
+                  key={item.id}
+                  style={{ animationDelay: `${i * 70}ms` }}
+                >
                   <span className={`estado-pill pill-${item.estado?.replace(' ', '-')}`}>
                     {item.estado}
                   </span>

@@ -1,80 +1,86 @@
+@keyframes headerIn {
+  from { opacity:0; transform:translateY(-18px); }
+  to   { opacity:1; transform:none; }
+}
+
 .galeria-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  margin: 28px 0 20px;
-  padding: 0 8px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; margin: 28px 0 20px; padding: 0 8px;
+  animation: headerIn 0.5s var(--ease-spring) both;
 }
 
 .galeria-header .page-title { margin: 0; }
 
 .btn-mis-reportes {
-  position: absolute;
-  right: 0;
-  padding: 9px 18px;
-  background: white;
-  color: var(--primary);
-  border: 1.5px solid var(--primary);
-  border-radius: 30px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition);
-  white-space: nowrap;
-  font-family: inherit;
+  position: absolute; right: 0;
+  padding: 9px 18px; background: white;
+  color: var(--primary); border: 1.5px solid var(--primary);
+  border-radius: 30px; font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: all var(--transition);
+  white-space: nowrap; font-family: inherit;
   box-shadow: var(--shadow-sm);
+  animation: fadeScale 0.4s var(--ease-spring) 0.2s both;
 }
 
 .btn-mis-reportes:hover {
-  background: var(--primary);
-  color: white;
-  box-shadow: 0 4px 14px rgba(26,92,26,0.3);
-  transform: translateY(-1px);
+  background: var(--primary); color: white;
+  box-shadow: 0 4px 14px rgba(26,92,26,0.3); transform: translateY(-1px);
 }
 
 .btn-mis-reportes.activo {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
+  background: var(--accent); border-color: var(--accent); color: white;
   box-shadow: 0 4px 14px rgba(233,69,96,0.3);
 }
 
-.loading-text,
+/* Loading con pulso */
+.loading-text {
+  text-align: center; margin-top: 80px;
+  font-size: 1rem; color: var(--text-3);
+  animation: fadeUp 0.4s var(--ease-spring) both;
+}
+
+.loading-text::before {
+  content: '';
+  display: block; width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  margin: 0 auto 14px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
 .empty-text {
-  text-align: center;
-  margin-top: 80px;
-  font-size: 1rem;
-  color: var(--text-3);
+  text-align: center; margin-top: 80px;
+  font-size: 1rem; color: var(--text-3);
+  animation: fadeUp 0.4s var(--ease-spring) both;
 }
 
 .empty-text::before {
-  content: '📭';
-  display: block;
-  font-size: 2.5rem;
-  margin-bottom: 12px;
+  content: '📭'; display: block;
+  font-size: 2.5rem; margin-bottom: 12px;
 }
 
 .galeria-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 22px;
-  padding: 8px 0 24px;
+  gap: 22px; padding: 8px 0 24px;
 }
 
-/* Stagger cards using :nth-child — up to 12 items */
-.galeria-grid .card:nth-child(1)  { animation-delay: 0.04s; }
-.galeria-grid .card:nth-child(2)  { animation-delay: 0.08s; }
-.galeria-grid .card:nth-child(3)  { animation-delay: 0.12s; }
-.galeria-grid .card:nth-child(4)  { animation-delay: 0.16s; }
-.galeria-grid .card:nth-child(5)  { animation-delay: 0.20s; }
-.galeria-grid .card:nth-child(6)  { animation-delay: 0.24s; }
-.galeria-grid .card:nth-child(7)  { animation-delay: 0.28s; }
-.galeria-grid .card:nth-child(8)  { animation-delay: 0.32s; }
-.galeria-grid .card:nth-child(9)  { animation-delay: 0.36s; }
-.galeria-grid .card:nth-child(10) { animation-delay: 0.40s; }
-.galeria-grid .card:nth-child(11) { animation-delay: 0.44s; }
-.galeria-grid .card:nth-child(12) { animation-delay: 0.48s; }
+/* Stagger de cards */
+.galeria-grid .card-perspective:nth-child(1)  { animation-delay: 0.04s; }
+.galeria-grid .card-perspective:nth-child(2)  { animation-delay: 0.09s; }
+.galeria-grid .card-perspective:nth-child(3)  { animation-delay: 0.14s; }
+.galeria-grid .card-perspective:nth-child(4)  { animation-delay: 0.19s; }
+.galeria-grid .card-perspective:nth-child(5)  { animation-delay: 0.24s; }
+.galeria-grid .card-perspective:nth-child(6)  { animation-delay: 0.29s; }
+.galeria-grid .card-perspective:nth-child(7)  { animation-delay: 0.34s; }
+.galeria-grid .card-perspective:nth-child(8)  { animation-delay: 0.39s; }
+.galeria-grid .card-perspective:nth-child(9)  { animation-delay: 0.44s; }
+.galeria-grid .card-perspective:nth-child(10) { animation-delay: 0.49s; }
+.galeria-grid .card-perspective:nth-child(11) { animation-delay: 0.54s; }
+.galeria-grid .card-perspective:nth-child(12) { animation-delay: 0.59s; }
 
 @media (max-width: 600px) {
   .galeria-header { flex-direction: column; gap: 12px; }

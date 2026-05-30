@@ -1,5 +1,5 @@
 // src/component/Navbar.jsx
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { cerrarSesion } from "../services/authService";
@@ -53,13 +53,13 @@ function Navbar() {
       <div className="navbar-links">
         {usuario && !esRutaPublica && (
           <>
-            <Link to="/galeria">Galería</Link>
-            <Link to="/estadisticas">Estadísticas</Link>
-            {rol === "cliente" && <Link to="/reportar">Reportar</Link>}
+            <NavLink to="/galeria">Galería</NavLink>
+            <NavLink to="/estadisticas">Estadísticas</NavLink>
+            {rol === "cliente" && <NavLink to="/reportar">Reportar</NavLink>}
             {rol === "admin" && (
               <>
-                <Link to="/admin">Incidencias</Link>
-                <Link to="/clientes">Clientes</Link>
+                <NavLink to="/admin">Incidencias</NavLink>
+                <NavLink to="/clientes">Clientes</NavLink>
               </>
             )}
           </>
