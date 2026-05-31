@@ -72,10 +72,7 @@ function Login() {
 
         <p className="glass-footer">
           ¿No tienes cuenta? <Link to="/registro">Regístrate aquí</Link>
-        </p>
-        <p className="glass-footer" style={{ marginTop: '6px' }}>
-          <Link to="/reporte-anonimo" className="glass-anon-link">Reportar sin cuenta →</Link>
-        </p>
+        </p>       
       </div>
     </div>
   );
