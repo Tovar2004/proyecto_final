@@ -44,7 +44,6 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <span className="navbar-brand-icon">🚨</span>
         Reporte de Incidencias Uniamazonia
       </div>
 
@@ -97,7 +96,7 @@ function Navbar() {
                       <span>{usuario.correo}</span>
                       {usuario.telefono && <span>📞 {usuario.telefono}</span>}
                       <span className="perfil-rol">
-                        {rol === "admin" ? "👑 Administrador" : "👤 Cliente"}
+                        {rol === "admin" ? "Administrador" : "Cliente"}
                       </span>
                     </div>
                     <hr />
